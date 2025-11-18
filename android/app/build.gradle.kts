@@ -8,7 +8,8 @@ plugins {
 android {
     namespace = "com.example.pas_mobile_11pplg1_16"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
