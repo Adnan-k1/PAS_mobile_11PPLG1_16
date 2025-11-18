@@ -19,7 +19,7 @@ class MainMenuPage extends StatelessWidget {
   final List<Widget> pages = [
     HomePage(),
     ProductListPage(),
-  
+    FavoritesPage(),
     ProfilePage(),
 
    
@@ -34,7 +34,7 @@ class MainMenuPage extends StatelessWidget {
 
   ];
 
-  // Daftar item drawer yang lebih rapi
+ 
   final List<Map<String, dynamic>> drawerItems = const [
     {'title': 'Home', 'icon': Icons.home_outlined},
     {'title': 'Store', 'icon': Icons.store_outlined},
@@ -110,7 +110,7 @@ class MainMenuPage extends StatelessWidget {
                       selectedTileColor: Colors.blue.withOpacity(0.1),
                       onTap: () {
                         mainController.changePage(index);
-                        Get.back(); // tutup drawer
+                        Get.back(); 
                       },
                     ),
                   );
@@ -130,5 +130,3 @@ class MainMenuPage extends StatelessWidget {
   }
 }
 
-// Tambahan catatan: Anda perlu mengubah nama class controller di `import` 
-// dan `Get.find` menjadi 'MainPageController' agar sesuai dengan kode asli.

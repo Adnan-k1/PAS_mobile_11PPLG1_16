@@ -30,7 +30,8 @@ class ProductListPage extends StatelessWidget {
         ],
       ),
       body: Obx(() {
-        if (c.isLoading.value) return const Center(child: CircularProgressIndicator());
+        if (c.isLoading.value)
+          return const Center(child: CircularProgressIndicator());
         if (c.error.isNotEmpty) return Center(child: Text(c.error.value));
         final products = c.products;
         if (products.isEmpty) return const Center(child: Text('No products'));
@@ -48,7 +49,9 @@ class ProductListPage extends StatelessWidget {
               final Storemodel p = products[i];
               return Card(
                 elevation: 2,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -68,24 +71,34 @@ class ProductListPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-                      child: Text('\$${p.price.toStringAsFixed(2)}',
-                          style: const TextStyle(color: Colors.green)),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 4,
+                      ),
+                      child: Text(
+                        '\$${p.price.toStringAsFixed(2)}',
+                        style: const TextStyle(color: Colors.green),
+                      ),
                     ),
                     ButtonBar(
                       alignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // observe bookmark state per item so icon updates color immediately
                         Obx(() {
                           final bookmarked = c.isBookmarked(p.id);
                           return IconButton(
-                            icon: Icon(bookmarked ? Icons.favorite : Icons.favorite_border,
-                                color: bookmarked ? Colors.red : null),
+                            icon: Icon(
+                              bookmarked
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: bookmarked ? Colors.red : null,
+                            ),
                             onPressed: () async {
                               await c.toggleBookmark(p);
                               Get.snackbar(
                                 bookmarked ? 'Removed' : 'Saved',
-                                bookmarked ? 'Removed from favorites' : 'Saved to favorites',
+                                bookmarked
+                                    ? 'Removed from favorites'
+                                    : 'Saved to favorites',
                                 snackPosition: SnackPosition.BOTTOM,
                               );
                             },
@@ -94,24 +107,32 @@ class ProductListPage extends StatelessWidget {
                         TextButton(
                           child: const Text('Details'),
                           onPressed: () {
-                            Get.dialog(AlertDialog(
-                              title: Text(p.title),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Image.network(p.image, height: 150),
-                                    const SizedBox(height: 8),
-                                    Text(p.description),
-                                    const SizedBox(height: 8),
-                                    Text('Rating: ${p.rating.rate} (${p.rating.count})'),
-                                  ],
+                            Get.dialog(
+                              AlertDialog(
+                                title: Text(p.title),
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Image.network(p.image, height: 150),
+                                      const SizedBox(height: 8),
+                                      Text(p.description),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        'Rating: ${p.rating.rate} (${p.rating.count})',
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Get.back(),
+                                    child: const Text('Close'),
+                                  ),
+                                ],
                               ),
-                              actions: [
-                                TextButton(onPressed: () => Get.back(), child: const Text('Close'))
-                              ],
-                            ));
+                            );
                           },
                         ),
                       ],

@@ -25,20 +25,26 @@ class LoginApiPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo
+             
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Text("cigni",
-                      style: TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.w900,
-                          color: primaryBlue)),
-                  Text("fi",
-                      style: TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.w900,
-                          color: lightBlueLogo)),
+                  Text(
+                    "cigni",
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.w900,
+                      color: primaryBlue,
+                    ),
+                  ),
+                  Text(
+                    "fi",
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.w900,
+                      color: lightBlueLogo,
+                    ),
+                  ),
                 ],
               ),
 
@@ -49,21 +55,22 @@ class LoginApiPage extends StatelessWidget {
                 child: Text(
                   "Login to your Account",
                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black87),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black87,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
 
-              // EMAIL
+              
               CustomTextField(
                 controller: emailC,
                 hint: "Email",
                 keyboardType: TextInputType.emailAddress,
               ),
 
-              // PASSWORD
+             
               CustomTextField(
                 controller: passwordC,
                 hint: "Password",
@@ -72,26 +79,28 @@ class LoginApiPage extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // LOGIN BUTTON
-              Obx(() => PrimaryButton(
-                    text: "Sign In",
-                    isLoading: loginC.isLoading.value,
-                    onPressed: () {
-                      if (emailC.text.isEmpty || passwordC.text.isEmpty) {
-                        Get.snackbar(
-                          "Perhatian",
-                          "Mohon isi semua kolom.",
-                          backgroundColor: primaryBlue,
-                          colorText: Colors.white,
-                        );
-                      } else {
-                        loginC.loginWithApi(
-                          emailC.text.trim(),
-                          passwordC.text.trim(),
-                        );
-                      }
-                    },
-                  )),
+             
+              Obx(
+                () => PrimaryButton(
+                  text: "Sign In",
+                  isLoading: loginC.isLoading.value,
+                  onPressed: () {
+                    if (emailC.text.isEmpty || passwordC.text.isEmpty) {
+                      Get.snackbar(
+                        "Perhatian",
+                        "Mohon isi semua kolom.",
+                        backgroundColor: primaryBlue,
+                        colorText: Colors.white,
+                      );
+                    } else {
+                      loginC.loginWithApi(
+                        emailC.text.trim(),
+                        passwordC.text.trim(),
+                      );
+                    }
+                  },
+                ),
+              ),
 
               const SizedBox(height: 25),
 
@@ -110,10 +119,12 @@ class LoginApiPage extends StatelessWidget {
                     style: TextStyle(color: Colors.grey[600], fontSize: 16),
                     children: const [
                       TextSpan(
-                          text: "Sign up",
-                          style: TextStyle(
-                              color: primaryBlue,
-                              fontWeight: FontWeight.w700)),
+                        text: "Sign up",
+                        style: TextStyle(
+                          color: primaryBlue,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ],
                   ),
                 ),

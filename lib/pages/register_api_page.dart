@@ -24,22 +24,6 @@ class RegisterApiPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 40),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text("cigni",
-                        style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w900,
-                            color: primaryBlue)),
-                    Text("fi",
-                        style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w900,
-                            color: lightBlueLogo)),
-                  ],
-                ),
-
                 const SizedBox(height: 35),
 
                 const Align(
@@ -47,15 +31,15 @@ class RegisterApiPage extends StatelessWidget {
                   child: Text(
                     "Create your Account",
                     style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black87,
+                    ),
                   ),
                 ),
 
                 const SizedBox(height: 20),
 
-                // FULL NAME
                 CustomTextField(
                   controller: regC.fullNameC,
                   hint: "Full Name",
@@ -63,7 +47,6 @@ class RegisterApiPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                // USERNAME
                 CustomTextField(
                   controller: regC.nameC,
                   hint: "Username",
@@ -71,7 +54,6 @@ class RegisterApiPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                // EMAIL
                 CustomTextField(
                   controller: regC.emailC,
                   hint: "Email",
@@ -79,7 +61,6 @@ class RegisterApiPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                // PASSWORD (pastikan controller diberikan)
                 CustomTextField(
                   controller: regC.passC,
                   hint: "Password",
@@ -87,7 +68,6 @@ class RegisterApiPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                // CONFIRM PASSWORD (pastikan controller diberikan)
                 CustomTextField(
                   controller: regC.confirmPassC,
                   hint: "Confirm Password",
@@ -95,38 +75,17 @@ class RegisterApiPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // REGISTER BUTTON
-                Obx(() => PrimaryButton(
-                      text: "Sign Up",
-                      isLoading: regC.isLoading.value,
-                      onPressed: () => regC.register(),
-                    )),
+                Obx(
+                  () => PrimaryButton(
+                    text: "Sign Up",
+                    isLoading: regC.isLoading.value,
+                    onPressed: () => regC.register(),
+                  ),
+                ),
 
                 const SizedBox(height: 25),
 
-                Text(
-                  "- Or continue manually -",
-                  style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                ),
-
-                const SizedBox(height: 20),
-
-                TextButton(
-                  onPressed: () => Get.offAllNamed('/login'),
-                  child: Text.rich(
-                    TextSpan(
-                      text: "Already have an account? ",
-                      style: TextStyle(color: Colors.grey[600], fontSize: 16),
-                      children: const [
-                        TextSpan(
-                            text: "Sign in",
-                            style: TextStyle(
-                                color: primaryBlue,
-                                fontWeight: FontWeight.w700)),
-                      ],
-                    ),
-                  ),
-                ),
+                
 
                 const SizedBox(height: 20),
               ],
