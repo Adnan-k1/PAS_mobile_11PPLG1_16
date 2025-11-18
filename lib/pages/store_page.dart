@@ -1,13 +1,14 @@
-// ...existing code...
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/store_controller.dart';
 import '../model/store_model.dart';
+import '../componets/product_card.dart';
+import '../componets/product_detail_dialog.dart';
 import 'favorite_page.dart';
 import 'profile_page.dart';
 
 class ProductListPage extends StatelessWidget {
-  ProductListPage({Key? key}) : super(key: key);
+  ProductListPage({super.key});
 
   final StoreController c = Get.put(StoreController());
 
@@ -29,12 +30,22 @@ class ProductListPage extends StatelessWidget {
           ),
         ],
       ),
+
       body: Obx(() {
-        if (c.isLoading.value)
+        if (c.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
-        if (c.error.isNotEmpty) return Center(child: Text(c.error.value));
+        }
+
+        if (c.error.isNotEmpty) {
+          return Center(child: Text(c.error.value));
+        }
+
         final products = c.products;
-        if (products.isEmpty) return const Center(child: Text('No products'));
+
+        if (products.isEmpty) {
+          return const Center(child: Text('No products'));
+        }
+
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView.builder(
@@ -47,98 +58,9 @@ class ProductListPage extends StatelessWidget {
             ),
             itemBuilder: (_, i) {
               final Storemodel p = products[i];
-              return Card(
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.network(p.image, fit: BoxFit.contain),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        p.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 4,
-                      ),
-                      child: Text(
-                        '\$${p.price.toStringAsFixed(2)}',
-                        style: const TextStyle(color: Colors.green),
-                      ),
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Obx(() {
-                          final bookmarked = c.isBookmarked(p.id);
-                          return IconButton(
-                            icon: Icon(
-                              bookmarked
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: bookmarked ? Colors.red : null,
-                            ),
-                            onPressed: () async {
-                              await c.toggleBookmark(p);
-                              Get.snackbar(
-                                bookmarked ? 'Removed' : 'Saved',
-                                bookmarked
-                                    ? 'Removed from favorites'
-                                    : 'Saved to favorites',
-                                snackPosition: SnackPosition.BOTTOM,
-                              );
-                            },
-                          );
-                        }),
-                        TextButton(
-                          child: const Text('Details'),
-                          onPressed: () {
-                            Get.dialog(
-                              AlertDialog(
-                                title: Text(p.title),
-                                content: SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Image.network(p.image, height: 150),
-                                      const SizedBox(height: 8),
-                                      Text(p.description),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        'Rating: ${p.rating.rate} (${p.rating.count})',
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Get.back(),
-                                    child: const Text('Close'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              return ProductCard(
+                product: p,
+                onDetail: () => showProductDetailDialog(context, p),
               );
             },
           ),
